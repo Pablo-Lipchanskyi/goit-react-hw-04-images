@@ -1,7 +1,7 @@
 import Loader from 'components/Loader/Loader';
 import Button from 'components/Button/Button';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
-import Searchbar from 'components/Searchbar/Searchbar';
+import {Searchbar} from 'components/Searchbar/Searchbar';
 import { useState, useEffect } from 'react';
 import * as API from 'services/api';
 import PropTypes from 'prop-types';
