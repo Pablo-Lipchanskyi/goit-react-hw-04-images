@@ -9,8 +9,8 @@ const initialValues = {
 export const Searchbar = ({onSubmit}) => {
   const [query, setQuery] = useState('')
 
-  const handleSubmit = () => {
-    onSubmit(query)
+  const handleSubmit = (values) => {
+    onSubmit(values['query'])
     setQuery('');
    
   }
