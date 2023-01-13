@@ -1,10 +1,44 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
-const modalRoot = document.querySelector('#modal-root');
+const modal = document.querySelector('#modal-root');
 
-class Modal extends Component {
+export default function Modal({ src, alt, toggleModal }) {
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscape())
+    
+    return () => {
+      window.removeEventListener('keydown', handleEscape())
+    }
+  })
+
+  const handleEscape = event => {
+    if (event.code === 'Escape') {
+      toggleModal();
+    }
+  }
+  const handleBackdropClick = event => {
+    if (event.currentTarget === event.target) {
+      toggleModal();
+    }
+  };
+
+    return createPortal(
+      <div className="Overlay" onClick={handleBackdropClick}>
+        <div className="Modal">
+          <img src={src} alt={alt} />
+        </div>
+      </div>,
+      modal
+    );
+}
+Modal.propTypes = {
+  handleBackdropClick: PropTypes.func.isRequired,
+  alt: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
+};
+/*class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handlerEscape);
   }
@@ -35,9 +69,4 @@ class Modal extends Component {
   }
 }
 export default Modal;
-
-Modal.propTypes = {
-  handleBackdropClick: PropTypes.func.isRequired,
-  alt: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
-};
+*/
