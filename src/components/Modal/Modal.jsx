@@ -5,13 +5,6 @@ import PropTypes from 'prop-types';
 const modal = document.querySelector('#modal-root');
 
 export default function Modal({ src, alt, toggleModal }) {
-  useEffect(() => {
-    window.addEventListener('keydown', handleEscape())
-    
-    return () => {
-      window.removeEventListener('keydown', handleEscape())
-    }
-  })
 
   const handleEscape = event => {
     if (event.code === 'Escape') {
@@ -24,6 +17,16 @@ export default function Modal({ src, alt, toggleModal }) {
     }
   };
 
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscape)
+    
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+    }
+  }, [handleEscape])
+
+  
+
     return createPortal(
       <div className="Overlay" onClick={handleBackdropClick}>
         <div className="Modal">
@@ -34,7 +37,7 @@ export default function Modal({ src, alt, toggleModal }) {
     );
 }
 Modal.propTypes = {
-  handleBackdropClick: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
   alt: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };
